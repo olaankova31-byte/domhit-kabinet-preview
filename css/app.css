@@ -83,7 +83,7 @@ textarea.input{resize:vertical;line-height:1.5}
 
 /* главная */
 .dash-hero{position:relative;isolation:isolate;overflow:hidden;border-radius:24px;color:#fff;padding:clamp(28px,4.5vw,56px);background:#2b3440 url("../assets/sea.webp") center 40%/cover;display:grid;gap:18px}
-.dash-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(12,18,26,.76),rgba(12,18,26,.42) 55%,rgba(12,18,26,.12))}
+.dash-hero::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:-1;background:linear-gradient(90deg,rgba(12,18,26,.76),rgba(12,18,26,.42) 55%,rgba(12,18,26,.12))}
 .dash-hero .eyebrow{color:rgba(255,255,255,.85)}
 .dash-hero h1{font-weight:300;font-size:clamp(34px,4.4vw,60px);line-height:1.02;letter-spacing:-.035em}
 .dash-hero h1 span{display:block}
@@ -235,6 +235,10 @@ textarea.input{resize:vertical;line-height:1.5}
   .mbar a{display:grid;justify-items:center;gap:3px;padding:5px 0;border-radius:10px;font-size:10px;font-weight:500;color:var(--muted);text-align:center;line-height:1.15;min-width:0;overflow:hidden}
   .mbar a svg{width:21px;height:21px}
   .mbar a.on{color:var(--orange-deep)}
+  @media (max-width:360px){
+    .mbar{padding-left:1px;padding-right:1px}
+    .mbar a{font-size:8.5px;letter-spacing:-.01em}
+  }
   #app{padding-bottom:96px;padding-top:20px;gap:28px}
   .toast{bottom:84px}
   .split.left{grid-template-columns:minmax(0,1fr)}

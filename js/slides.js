@@ -227,6 +227,24 @@
   DH.allSlidesHtml=p=>DH.activeSlides(p).map(i=>DH.slideHtml(p,i)).join('');
   DH.slideTitles=p=>['Знакомство','Специализация',isNew(p)?'Команда':'Опыт','Подход',isNew(p)?'Проверка объекта':'Кейсы','Компания','Контакты'];
 
+  /* Старые iPhone (iOS ниже 16) не знают единицу cqw, и без неё у слайдов пропадают все размеры.
+     Там считаем единицу сами от ширины слайда. */
+  DH.unitFallback=function(noRatio){
+    const ratio=!noRatio&&CSS.supports('aspect-ratio','16/9');
+    const fit=()=>DH.$$('.slide').forEach(s=>{
+      const w=s.clientWidth;if(!w)return;
+      const feed=s.closest('.feed');
+      s.style.setProperty('--u',(w*(feed?2.55:1)/100)+'px');
+      if(!ratio)s.style.height=feed?'':(w*9/16)+'px';
+    });
+    new MutationObserver(list=>{
+      if(list.some(m=>[...m.addedNodes].some(n=>n.nodeType===1&&(n.matches('.slide')||n.querySelector('.slide')))))fit();
+    }).observe(document.body,{childList:true,subtree:true});
+    addEventListener('resize',fit);addEventListener('orientationchange',fit);
+    fit();
+  };
+  if(!(window.CSS&&CSS.supports&&CSS.supports('width','1cqw')))DH.unitFallback();
+
   /* Печать в PDF: складываем все слайды в отдельный контейнер */
   DH.printDeck=function(p){
     const prev=document.title;
